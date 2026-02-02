@@ -7,7 +7,7 @@ clc; clear; close all;
 th = linspace(0, 2*pi, 1000);
 
 % Coordinates of the center
-p =0; q = 0;
+h =0; k = 0;
 
 % Number of circles
 n = 10;
@@ -19,11 +19,11 @@ axis equal;
 colors = lines(n);
 
 for r = 1:n
-    x = p + r*cos(th);
-    y = q + r*sin(th);
+    x = h + r*cos(th);
+    y = k + r*sin(th);
     
     plot(x, y, 'Color', colors(r, :));
 end
 
-plot(p, q, '+');
+plot(h, k, '+');
 hold off
