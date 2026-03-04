@@ -1,40 +1,31 @@
 %Gaussian Elimination with Partial Pivoting
 
 clc; clear;
-
-A = [2, 1, -1; 
+A = [2, 1, -1;
     -3, -1, 2; 
     -2, 1, 2];
+
 b = [8; -11; -3];
+n = length(b);
 
-[n, ~] = size(A);
-x = zeros(n, 1);
-
-%Forward Elimination with Partial Pivoting
 for k = 1:n-1
     
+    [max_val, max_idx] = max(abs(A(k:n, k))); 
+    p = max_idx + k - 1;                 
     
-    [~, max_idx] = max(abs(A(k:n, k)));
-    
-    p = max_idx + k - 1;
-    
-    if p ~= k
-        A([k, p], :) = A([p, k], :);
-        b([k, p]) = b([p, k]);
-    end
+    A([k, p], :) = A([p, k], :);         
+    b([k, p])    = b([p, k]);            
 
-    for i = k+1:n
-        m = A(i,k) / A(k,k);
-        A(i,:) = A(i,:) - m * A(k,:);
-        b(i) = b(i) - m * b(k);
-    end
+    
+    m = A(k+1:n, k) / A(k,k);
+    A(k+1:n, :) = A(k+1:n, :) - m * A(k, :);
+    b(k+1:n)    = b(k+1:n)    - m * b(k);
 end
 
-%Back Substitution
-x(n) = b(n) / A(n,n);
-for i = n-1:-1:1
+x = zeros(n, 1);
+for i = n:-1:1
     x(i) = (b(i) - A(i, i+1:n) * x(i+1:n)) / A(i,i);
 end
 
-disp('Solution x (With Partial Pivoting):')
-disp(x);
+disp('Solution (With Pivoting):')
+disp(x)
