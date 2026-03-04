@@ -1,3 +1,5 @@
+%Fixed Point Iteration Method
+
 clc; clearvars;
 
 f = @(x) x.^3 + x.^2 - 1;
